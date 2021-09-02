@@ -32,9 +32,6 @@ namespace CloudEventsSample.Controllers
         private const string CloudEventResponseUri =
             "https://github.com/knative/docs/docs/serving/samples/cloudevents/cloudevents-dotnet";
 
-        private static readonly Lazy<string> SinkUri =
-            new Lazy<string>(() => Environment.GetEnvironmentVariable("K_SINK"));
-
         private readonly ILogger<CloudEventsController> logger;
 
         public CloudEventsController(ILogger<CloudEventsController> logger)
@@ -42,23 +39,12 @@ namespace CloudEventsSample.Controllers
             this.logger = logger;
         }
 
-        /// <summary>
-        /// Responds to the post request by calling ReceiveAndReply if K_SINK is not set,
-        /// or by calling ReceiveAndSend if K_SINK is set.
-        /// </summary>
         [HttpPost]
         public async Task<IActionResult> Post([FromBody] CloudEvent receivedEvent)
         {
             try
             {
-                if (string.IsNullOrEmpty(SinkUri.Value))
-                {
                     return this.ReceiveAndReply(receivedEvent);
-                }
-                else
-                {
-                    return await this.ReceiveAndSend(receivedEvent);
-                }
             }
             catch (JsonException)
             {
@@ -78,19 +64,7 @@ namespace CloudEventsSample.Controllers
             return new CloudEventActionResult(HttpStatusCode.OK, content);
         }
 
-        /// <summary>
-        /// This is called whenever an event is received if K_SINK environment variable is set.
-        /// Sends a new event to the url in K_SINK.
-        /// </summary>
-        private async Task<IActionResult> ReceiveAndSend(CloudEvent receivedEvent)
-        {
-            this.logger?.LogInformation($"Received event {JsonSerializer.Serialize(receivedEvent)}");
-            using var content = GetResponseForEvent(receivedEvent);
-            using var client = new HttpClient();
-            using var result = await client.PostAsync(SinkUri.Value, content);
-            return this.StatusCode((int)result.StatusCode, await result.Content.ReadAsStringAsync());
-        }
-
+      
         /// <summary>
         /// Respond back with the JSON serialized request.
         /// </summary>
