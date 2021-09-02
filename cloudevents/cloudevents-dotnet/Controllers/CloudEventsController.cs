@@ -84,6 +84,7 @@ namespace CloudEventsSample.Controllers
                 {
                     DataContentType = new ContentType(MediaTypeNames.Application.Json),
                     Data = new SampleOutput {Message = $"Hello, {input.Name}"},
+                    this.logger.LogInformation(Data);
                 },
                 ContentMode.Structured,
                 new JsonEventFormatter()
