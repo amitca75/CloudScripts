@@ -22,6 +22,7 @@ using Microsoft.AspNetCore.Mvc;
 using CloudNative.CloudEvents;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json.Linq;
+using Microsoft.DotNet.Interactive.Formatting;
 
 namespace CloudEventsSample.Controllers
 {
