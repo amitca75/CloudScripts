@@ -59,15 +59,9 @@ namespace CloudEventsSample.Controllers
         /// </summary>
         private IActionResult ReceiveAndReply(CloudEvent receivedEvent)
         {
-            this.logger?.LogInformation($"Received event {JsonSerializer.Serialize(receivedEvent)}");
+//             this.logger?.LogInformation($"Received event {JsonSerializer.Serialize(receivedEvent)}");
 
-//             var event = JsonSerializer.Serialize(receivedEvent);
-//             JObject parsed = JObject.Parse(event);
-//             foreach (var pair in parsed)
-//             {
-//                 Console.WriteLine("{0}: {1}", pair.Key, pair.Value);
-//             }
-//             this.logger?.LogInformation(parsed);
+            this.logger?.LogInformation(Newtonsoft.Json.JsonConvert.SerializeObject( receivedEvent, Formatting.Indented ));
             
             var content = GetResponseForEvent(receivedEvent);
             this.HttpContext.Response.RegisterForDispose(content);
