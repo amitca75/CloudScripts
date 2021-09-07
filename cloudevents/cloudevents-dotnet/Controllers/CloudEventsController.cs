@@ -61,7 +61,9 @@ namespace CloudEventsSample.Controllers
         {
 //             this.logger?.LogInformation($"Received event {JsonSerializer.Serialize(receivedEvent)}");
 
-            this.logger?.LogInformation(Newtonsoft.Json.JsonConvert.SerializeObject( receivedEvent));
+//             this.logger?.LogInformation(Newtonsoft.Json.JsonConvert.SerializeObject( receivedEvent));
+
+            this.logger?.LogInformation(JsonConvert.SerializeObject(receivedEvent, Formatting.Indented));
             
             var content = GetResponseForEvent(receivedEvent);
             this.HttpContext.Response.RegisterForDispose(content);
