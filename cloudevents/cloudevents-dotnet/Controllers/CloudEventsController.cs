@@ -61,21 +61,19 @@ namespace CloudEventsSample.Controllers
         {
 //             this.logger?.LogInformation($"Received event {JsonSerializer.Serialize(receivedEvent)}");
 
-//             var event = JsonSerializer.Serialize(receivedEvent);
-//             JObject parsed = JObject.Parse(event);
-
-//             foreach (var pair in parsed)
-//             {
-//                 Console.WriteLine("{0}: {1}", pair.Key, pair.Value);
-//             }
-//             this.logger?.LogInformation(parsed);
+            var event = JsonSerializer.Serialize(receivedEvent);
+            JObject parsed = JObject.Parse(event);
+            foreach (var pair in parsed)
+            {
+                Console.WriteLine("{0}: {1}", pair.Key, pair.Value);
+            }
+            this.logger?.LogInformation(parsed);
             
             var content = GetResponseForEvent(receivedEvent);
             this.HttpContext.Response.RegisterForDispose(content);
             return new CloudEventActionResult(HttpStatusCode.OK, content);
         }
 
-      
         /// <summary>
         /// Respond back with the JSON serialized request.
         /// </summary>
