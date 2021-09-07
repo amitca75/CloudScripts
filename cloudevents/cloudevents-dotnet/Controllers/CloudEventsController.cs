@@ -60,7 +60,7 @@ namespace CloudEventsSample.Controllers
         {
 //             this.logger?.LogInformation($"Received event {JsonSerializer.Serialize(receivedEvent)}");
 
-            this.logger?.LogInformation($"Received event {receivedEvent}");
+            this.logger?.LogInformation($"Received event JsonSerializer.Deserialize(receivedEvent)}");
             var content = GetResponseForEvent(receivedEvent);
 //             this.logger?.LogInformation($"Content of the event {JsonSerializer.Serialize(content)}");
             this.HttpContext.Response.RegisterForDispose(content);
