@@ -58,9 +58,11 @@ namespace CloudEventsSample.Controllers
         /// </summary>
         private IActionResult ReceiveAndReply(CloudEvent receivedEvent)
         {
-            this.logger?.LogInformation($"Received event {JsonSerializer.Serialize(receivedEvent)}");
+//             this.logger?.LogInformation($"Received event {JsonSerializer.Serialize(receivedEvent)}");
+
+            this.logger?.LogInformation($"Received event {receivedEvent}");
             var content = GetResponseForEvent(receivedEvent);
-            this.logger?.LogInformation($"Content of the event {JsonSerializer.Serialize(content)}");
+//             this.logger?.LogInformation($"Content of the event {JsonSerializer.Serialize(content)}");
             this.HttpContext.Response.RegisterForDispose(content);
             return new CloudEventActionResult(HttpStatusCode.OK, content);
         }
