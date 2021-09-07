@@ -63,10 +63,10 @@ namespace CloudEventsSample.Controllers
 
             var event = JsonSerializer.Serialize(receivedEvent);
             JObject parsed = JObject.Parse(event);
-            foreach (var pair in parsed)
-            {
-                Console.WriteLine("{0}: {1}", pair.Key, pair.Value);
-            }
+//             foreach (var pair in parsed)
+//             {
+//                 Console.WriteLine("{0}: {1}", pair.Key, pair.Value);
+//             }
             this.logger?.LogInformation(parsed);
             
             var content = GetResponseForEvent(receivedEvent);
