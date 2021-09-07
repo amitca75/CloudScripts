@@ -22,7 +22,6 @@ using Microsoft.AspNetCore.Mvc;
 using CloudNative.CloudEvents;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json.Linq;
-using Microsoft.DotNet.Interactive.Formatting;
 
 namespace CloudEventsSample.Controllers
 {
@@ -60,12 +59,7 @@ namespace CloudEventsSample.Controllers
         /// </summary>
         private IActionResult ReceiveAndReply(CloudEvent receivedEvent)
         {
-//             this.logger?.LogInformation($"Received event {JsonSerializer.Serialize(receivedEvent)}");
-
-//             this.logger?.LogInformation(Newtonsoft.Json.JsonConvert.SerializeObject( receivedEvent));
-
-            this.logger?.LogInformation(JsonConvert.SerializeObject(receivedEvent, Formatting.Indented));
-            
+            this.logger?.LogInformation(Newtonsoft.Json.JsonConvert.SerializeObject( receivedEvent));
             var content = GetResponseForEvent(receivedEvent);
             this.HttpContext.Response.RegisterForDispose(content);
             return new CloudEventActionResult(HttpStatusCode.OK, content);
