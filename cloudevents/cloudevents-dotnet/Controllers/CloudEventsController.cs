@@ -83,7 +83,7 @@ namespace CloudEventsSample.Controllers
                 new CloudEvent(CloudEventResponseType, new Uri(CloudEventResponseUri))
                 {
                     DataContentType = new ContentType(MediaTypeNames.Application.Json),
-                    Data = new SampleOutput {Message = $"Hello there v2 !!!, {input.Name}"},
+                    Data = new SampleOutput {Message = $"Hello there v1 !!!, {input.Name}"},
                 },
                 ContentMode.Structured,
                 new JsonEventFormatter()
